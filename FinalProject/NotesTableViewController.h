@@ -1,0 +1,24 @@
+//
+//  NotesTableViewController.h
+//  
+//
+//  Created by Billy Matthews on 2011-04-29.
+//  Copyright 2011 Bucknell University. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "CoreDataTableViewController.h"
+@class DetailViewController;
+
+@interface NotesTableViewController : CoreDataTableViewController {
+    
+}
+
+@property (nonatomic, retain) IBOutlet DetailViewController * detailViewController;
+//@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+- (id) initInManagedObjectContext: (NSManagedObjectContext *) context;
+- (void)insertNewObject:(id)sender;
+
+@end

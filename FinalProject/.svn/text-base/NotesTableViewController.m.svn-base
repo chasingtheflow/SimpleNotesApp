@@ -1,0 +1,68 @@
+//
+//  NotesTableViewController.m
+//  
+//
+//  Created by Billy Matthews on 2011-04-29.
+//  Copyright 2011 Bucknell University. All rights reserved.
+//
+
+#import "NotesTableViewController.h"
+#import "DetailViewController.h"
+#import "Note.h"
+
+@implementation NotesTableViewController
+
+@synthesize detailViewController;
+@synthesize managedObjectContext;
+//@synthesize fetchedResultsController;
+
+
+
+
+//
+// Initializes this table view controller with an ascending list of
+// photographers.
+//
+- (id) initInManagedObjectContext: (NSManagedObjectContext *) context {
+    if ((self = [super initWithStyle: UITableViewStylePlain])) {
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        request.entity = [NSEntityDescription entityForName: @"Note"
+                                     inManagedObjectContext: context];
+        request.sortDescriptors = [NSArray arrayWithObject: [NSSortDescriptor sortDescriptorWithKey: @"timeStamp"
+                                                                                          ascending: YES
+                                                                                           selector: @selector(caseInsensitiveCompare:)]];
+        request.predicate = nil;
+        request.fetchBatchSize = 20;
+        NSFetchedResultsController *resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: request 
+                                                                                            managedObjectContext: context 
+                                                                                              sectionNameKeyPath: nil 
+                                                                                                       cacheName: nil];
+        [request release];
+        self.fetchedResultsController = resultsController;
+        [resultsController release];
+        self.titleKey = @"noteName";
+        self.searchKey = @"noteName";
+    }
+    return self;
+}
+
+
+//
+// called when a cell representing the specified managedObject is selected (does nothing by default)
+//
+- (void)managedObjectSelected:(NSManagedObject *)managedObject {
+    // Navigation logic may go here. Create and push another view controller.
+    // AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
+    // [self.navigationController pushViewController:anotherViewController];
+    // [anotherViewController release];
+}
+
+ 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return YES;
+}
+
+
+
+
+@end
